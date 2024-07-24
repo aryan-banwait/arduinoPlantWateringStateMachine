@@ -2,6 +2,7 @@ import edu.princeton.cs.introcs.StdDraw;
 import org.firmata4j.*;
 import org.firmata4j.ssd1306.SSD1306;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 
 public class PlantWaterMachine implements IODeviceEventListener {
@@ -47,7 +48,8 @@ public class PlantWaterMachine implements IODeviceEventListener {
                 OLedDisplay.display();
 
                 // Creating timer to get time and voltage values and store into an ArrayList
-                GraphInfoTask gettingSamples = new GraphInfoTask(voltageSensor);
+                ArrayList<Long> moistureValues = new ArrayList<>();
+                GraphInfoTask gettingSamples = new GraphInfoTask(voltageSensor, moistureValues);
                 Timer timer = new Timer();
                 timer.scheduleAtFixedRate(gettingSamples,100,100);
 
@@ -93,24 +95,24 @@ public class PlantWaterMachine implements IODeviceEventListener {
                 StdDraw.text(52.5,745,"Soil Moisture Changes");
 
                 // Drawing data points
-                for(int i = 0; i < GraphInfoTask.moistureValues.size(); i++) {
-                    StdDraw.point(i + 1,GraphInfoTask.moistureValues.get(i));
+                for (int i = 0; i < moistureValues.size(); i++) {
+                    StdDraw.point(i + 1, moistureValues.get(i));
                 }
 
                 // Displaying Graph Info to Console
-                System.out.println(GraphInfoTask.moistureValues);
+                System.out.println(moistureValues);
 
-                long biggestMoistureValue = GraphInfoTask.moistureValues.getFirst();
-                for(int i = 1; i < GraphInfoTask.moistureValues.size(); i++) {
-                    if(GraphInfoTask.moistureValues.get(i) >= biggestMoistureValue) {
-                        biggestMoistureValue = GraphInfoTask.moistureValues.get(i);
+                long biggestMoistureValue = moistureValues.getFirst();
+                for (int i = 1; i < moistureValues.size(); i++) {
+                    if (moistureValues.get(i) >= biggestMoistureValue) {
+                        biggestMoistureValue = moistureValues.get(i);
                     }
                 }
 
-                long smallestMoistureValue = GraphInfoTask.moistureValues.getFirst();
-                for(int i = 1; i < GraphInfoTask.moistureValues.size(); i++) {
-                    if(GraphInfoTask.moistureValues.get(i) <= smallestMoistureValue) {
-                        smallestMoistureValue = GraphInfoTask.moistureValues.get(i);
+                long smallestMoistureValue = moistureValues.getFirst();
+                for (int i = 1; i < moistureValues.size(); i++) {
+                    if (moistureValues.get(i) <= smallestMoistureValue) {
+                        smallestMoistureValue = moistureValues.get(i);
                     }
                 }
 

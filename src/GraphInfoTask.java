@@ -5,11 +5,11 @@ import java.util.TimerTask;
 public class GraphInfoTask extends TimerTask {
 
     private final Pin voltageSensor;
-    public static ArrayList<Long> moistureValues;
+    public final ArrayList<Long> moistureValues;
 
-    GraphInfoTask(Pin voltageSensor) {
+    GraphInfoTask(Pin voltageSensor, ArrayList<Long> moistureValues) {
         this.voltageSensor = voltageSensor;
-        moistureValues = new ArrayList<>();
+        this.moistureValues = moistureValues;
     }
 
     @Override
