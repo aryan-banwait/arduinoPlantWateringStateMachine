@@ -10,5 +10,6 @@
     <orderEntry type="library" name="github.fracpete.princeton.java.stdlib" level="project" />
     <orderEntry type="library" name="github.kurbatov.firmata4j" level="project" />
     <orderEntry type="library" name="slf4j.jcl" level="project" />
+    <orderEntry type="library" name="junit" level="project" />
   </component>
 </module>
